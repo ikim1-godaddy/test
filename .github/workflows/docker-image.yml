@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ dockerexercise ]
+    branches: [ main ]
   pull_request:
-    branches: [ dockerexercise ]
+    branches: [ main ]
 
 jobs:
 
@@ -15,4 +15,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag test:$(date +%s)
+      run: |
+        export TAG=$(date +%s)
+        docker build . --file Dockerfile --tag test:$TAG
+
+    - name: Run the Docker image
+      run: docker run test:$TAG

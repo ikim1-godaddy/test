@@ -15,9 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: |
-        export TAG=$(date +%s)
-        docker build . --file Dockerfile --tag test:$TAG
+      run: docker build . --file Dockerfile --tag test:latest
 
     - name: Run the Docker image
-      run: docker run test:$TAG
+      run: docker run test:latest
